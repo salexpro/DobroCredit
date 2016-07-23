@@ -2,7 +2,7 @@
 
 @import 'settings';
 @import 'foundation';
-// @import 'motion-ui';
+@import 'motion-ui';
 @import '../bower_components/font-awesome/scss/font-awesome.scss';
 @import '/scss/fontello.css';
 
@@ -19,7 +19,7 @@
 // @include foundation-breadcrumbs;
 // @include foundation-button-group;
 // @include foundation-callout;
-// @include foundation-close-button;
+@include foundation-close-button;
 // @include foundation-menu;
 // @include foundation-menu-icon;
 // @include foundation-drilldown-menu;
@@ -36,7 +36,7 @@
 // @include foundation-meter-element;
 // @include foundation-slider;
 // @include foundation-sticky;
-// @include foundation-reveal;
+@include foundation-reveal;
 // @include foundation-switch;
 // @include foundation-table;
 // @include foundation-tabs;
@@ -48,7 +48,7 @@
 @include foundation-float-classes;
 @include foundation-flex-classes;
 
-//@include motion-ui-transitions;
-//@include motion-ui-animations;
+@include motion-ui-transitions;
+// @include motion-ui-animations;
 
 @import 'styles';

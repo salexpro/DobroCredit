@@ -15,6 +15,7 @@ a{
     background: map-get($foundation-palette, fourth);
     color: $white;
     border: 2px solid map-get($foundation-palette, fourth);
+    text-decoration: none !important;
     &:hover{
         background: #168587;
         border-color: #168587;
@@ -48,61 +49,179 @@ a{
     font-size: 12px;
 }
 
+.reveal, .close-button{
+    outline: none;
+    .logo{
+        img{
+            height: 85px;
+        }
+        padding-bottom: 65px;
+    }
+}
+
 .head{
     height: 100px;
     background: $light-gray;
     &_inner{
         height: 100%;
+        .banner{
+            padding-left: 0;
+            padding-right: 11px;
+        }
     }
-    .login{
-        text-align: center;
-        padding-left: 0;
-        &_search{
-            color: #969696;
+}
+.login{
+    text-align: center;
+    padding-left: 0;
+    &_search{
+        i{
+            color: $dark-gray;
             font-size: 20px;
-            vertical-align: middle;
-            margin-right: 9px;
         }
-        .uprof{
-            display: inline-block;
-            width: calc(100% - 32px);
-            text-align: left;
-            vertical-align: middle;
-            position: relative;
-            &.is_new:before{
-                content: '';
-                position: absolute;
-                top: 5px;
-                left: 23px;
-                width: 9px;
-                height: 9px;
-                background: #e74c3c;
-                border-radius: 50%;
-                border: 2px solid #ECF0F1;
+    }
+    .uprof{
+        display: inline-block;
+        width: calc(100% - 32px);
+        text-align: left;
+        vertical-align: middle;
+        position: relative;
+        &.is_new:before{
+            content: '';
+            position: absolute;
+            top: 5px;
+            left: 23px;
+            width: 9px;
+            height: 9px;
+            background: #e74c3c;
+            border-radius: 50%;
+            border: 2px solid #ECF0F1;
+        }
+        img{
+            float: left;
+            width: 32px;
+            margin-right: 10px;
+            margin-top: 4px;
+        }
+        .ucab{
+            display: block;
+            color: map-get($foundation-palette, fourth);
+        }
+        .uexit {
+            font-size: 12px;
+            color: $medium-gray;
+        }
+    }
+    .label{
+        cursor: pointer;
+    }
+    &_register{
+        padding-right: 55px !important;
+        a{
+            display: flex;
+            align-items: center;
+            width: 100%;
+            height: 37px;
+            margin-bottom: 10px;
+            color: $white;
+            border-radius: 10px;
+            padding: 0 12px;
+            text-decoration: none;
+            transition: 200ms;
+            &:hover{
+                opacity: .9;
             }
-            img{
-                float: left;
-                width: 32px;
+            i{
+                font-size: 24px;
                 margin-right: 10px;
-                margin-top: 4px;
-            }
-            .ucab{
-                display: block;
-                color: map-get($foundation-palette, fourth);
-            }
-            .uexit {
-                font-size: 12px;
-                color: $medium-gray;
+                width: 25px;
+                text-align: center;
             }
         }
-        .label{
-            float: right;
-            cursor: pointer;
+        &_facebook{
+            background-color: #5480BE;
+        }
+        &_vkontakte{
+            background-color: #2f6caa;
+        }
+        &_yandex{
+            background-color: #dc4c39;
+        }
+        &_google{
+            background-color: #505050;       
+            i{
+                font-size: 20px !important;
+            }
+        }
+        &_odnoklassniki{
+            background-color: #ed812b;
+        }
+        &_twitter{
+            background-color: #79CAEE;
+            margin: 0 !important;
+        }
+    }
+    &_form{
+        position: relative;
+        padding-left: 30px !important;
+        &:before{
+            content: 'или';
+            position: absolute;
+            top: calc(50% - 15px);
+            left: -26px;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            border: 2px solid $medium-gray;
+            font-size: 12px;
+            color: $medium-gray;
+            background-color: $white;
+            z-index: 2;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            line-height: 15px;
+            font-weight: 600;
+        }
+        &:after{
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -12px;
+            width: 2px;
+            height: 100%;
+            background-color: $medium-gray;
+        }
+        [type="text"]{
+            margin-bottom: 25px;
+        }
+        > div{
+            &:first-of-type{
+                padding-right: 5px;
+            }
+            &:last-of-type{
+                padding-left: 5px;
+            }
+        }
+        .button{
+            width: 100%;
+        }
+        &_forgot{
+            display: block;
+            width: 100%;
+            margin-top: 10px;
+            font-size: 12px;
+            color: #878787;
+            left: 0;
+            text-align: center;
+            &:hover, &:focus{
+                color: $dark-gray;
+            }
         }
     }
 }
 .cats{
-    padding-bottom: 30px;
+    padding-bottom: 6px;
     p{
         display: flex;
         justify-content:center;
@@ -153,27 +272,21 @@ a{
     }
     a{
         display: flex;
+        transition: 200ms;
         &:hover{
             color: map-get($foundation-palette, alert);
             i{
                 color: map-get($foundation-palette, alert);
+                transition: 200ms;
             }
         }
     }
 }
-.content{
-    .article{
-        padding-left: 0;
-    }
-    .sidebar{
-        padding-right: 0;
-    }
-}
+
 .board{
     &_head{
         background: $light-gray;
-        min-height: 50px;
-        margin-bottom: 15px;
+        margin-bottom: 11px;
     }
     &_header{
         text-transform: uppercase;
@@ -256,7 +369,7 @@ a{
             justify-content: space-between;
             border: 2px solid $light-gray;
             border-bottom: 0;
-            padding: 6px 5px;
+            padding: 0 5px;
             &:first-child{
                 border-right: 0;
             }

@@ -46,7 +46,7 @@
 // ---------
 
 $global-font-size: 14px;
-$global-width: rem-calc(1280);
+$global-width: rem-calc(1310);
 $global-lineheight: 1.5;
 $foundation-palette: (
   primary: #2c3e50,
@@ -238,7 +238,7 @@ $breadcrumbs-item-slash: true;
 // 11. Button
 // ----------
 
-$button-padding: 7px 17px;
+$button-padding: 9px 17px;
 $button-margin: 0;
 $button-fill: dashed;
 $button-background: $white;
@@ -456,9 +456,9 @@ $progress-radius: $global-radius;
 // ----------
 
 $reveal-background: $white;
-$reveal-width: 600px;
+$reveal-width: 820px;
 $reveal-max-width: $global-width;
-$reveal-padding: $global-padding;
+$reveal-padding: 70px;
 $reveal-border: 1px solid $medium-gray;
 $reveal-radius: $global-radius;
 $reveal-zindex: 1005;
