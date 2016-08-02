@@ -514,17 +514,17 @@ $show-header-for-stacked: false;
 // 32. Tabs
 // --------
 
-$tab-margin: 0;
-$tab-background: $white;
-$tab-background-active: $light-gray;
-$tab-item-font-size: rem-calc(12);
-$tab-item-background-hover: $white;
-$tab-item-padding: 1.25rem 1.5rem;
+$tab-margin: 0 0 20px 0;
+$tab-background: transparent;
+$tab-background-active: map-get($foundation-palette, warning);
+$tab-item-font-size: 16px;
+$tab-item-background-hover: map-get($foundation-palette, warning);
+$tab-item-padding: 0;
 $tab-expand-max: 6;
 $tab-content-background: $white;
-$tab-content-border: $light-gray;
-$tab-content-color: foreground($tab-background, $primary-color);
-$tab-content-padding: 1rem;
+$tab-content-border: 0;
+$tab-content-color: none;
+$tab-content-padding: 0;
 
 // 33. Thumbnail
 // -------------
