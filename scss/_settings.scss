@@ -514,7 +514,7 @@ $show-header-for-stacked: false;
 // 32. Tabs
 // --------
 
-$tab-margin: 0 0 20px 0;
+$tab-margin: 0;
 $tab-background: transparent;
 $tab-background-active: map-get($foundation-palette, warning);
 $tab-item-font-size: 16px;

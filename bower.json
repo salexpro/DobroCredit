@@ -12,7 +12,8 @@
     "foundation-sites": "~6.2.0",
     "motion-ui": "^1.2.2",
     "font-awesome": "Font-Awesome#^4.6.3",
-    "enhanced-cookie": "^1.0.0"
+    "enhanced-cookie": "^1.0.0",
+    "tooltipster": "^4.1.2"
   },
   "ignore": [
     "**/.*",
