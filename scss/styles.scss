@@ -54,6 +54,10 @@ form[id^="ecform-"] input,.com-order-select,.ucoz-editor-panel select{
 body>iframe{
     display: none;
 }
+.noEntry{
+    margin-top: 20px;
+    text-align: center;
+}
 
 //Подсказки
 .tooltipster-default{border-radius: 34px;border:1px solid $white;background: map-get($foundation-palette, alert);color: $white;}
@@ -93,7 +97,7 @@ input[type="reset"],
     vertical-align: middle;
     border: 1px solid rgba(0, 0, 0, 0);
     border-radius: 18px;
-    padding: 9px 17px;
+    padding: 8px 17px;
     margin: 0;
     font-size: 14px;
     outline: none;
@@ -102,6 +106,7 @@ input[type="reset"],
     color: $white;
     border: 2px solid map-get($foundation-palette, fourth);
     text-decoration: none !important;
+    white-space: nowrap;
     &:hover {
         background: #168587;
         border-color: #168587;
@@ -127,6 +132,11 @@ input[type="reset"],
             background: #14787A;
             border-color: #14787A;
         }
+    }
+    &.orange{
+        background-color: map-get($foundation-palette, warning);
+        border-color: map-get($foundation-palette, warning);
+        color: $black;
     }
 }
 
@@ -219,7 +229,7 @@ select{
 }
 
 .label {
-    cursor: pointer;
+    // cursor: pointer;
 }
 
 .tabs{
@@ -1528,6 +1538,56 @@ select{
             margin-bottom: 5px;
         }
     }
+    &_items{
+        margin-top: 30px;
+        margin-bottom: 25px;
+        [id^="entryID"]:nth-child(even){
+            background-color: $light-gray;
+        }
+        &_head{
+            padding: 5px 0;
+            background-color: $dark-gray;
+            color: $white;
+            font-weight: 600;
+            @include breakpoint(small down) {
+                display: none;
+            }
+            > div{
+                &:nth-child(4){
+                    white-space: nowrap;
+                }
+            }
+        }
+    }
+    &_item{
+        padding: 10px 0;
+        .button{
+            white-space: normal;
+            margin-right: 1.0714285714rem;
+        }
+        @include breakpoint(small down) {
+            > div {
+                display: flex;
+                padding: 2px 0;
+                padding-left: 0.7142857143rem;
+                padding-right: 0.7142857143rem;
+                &:before{
+                    content: attr(data-value);
+                    white-space: pre;
+                    font-weight: 600;
+                    flex: 0 0 50%;
+                    padding-right: 5px;
+                    &:empty{
+                        display: none;
+                    }
+                }
+                .button{
+                    width: 100%;
+                    max-width: 200px;
+                }
+            }
+        }
+    }
 }
 
 .bid{
@@ -2048,6 +2108,91 @@ select{
                 margin-bottom: 10px;
             }
         }
+    }
+}
+
+.banks{
+    &_search{
+        background-color: $light-gray;
+        overflow: hidden;
+        padding: 20px;
+        @include breakpoint(small down) {
+            padding: 10px;
+        }
+        &_input{
+            display: flex;
+            margin-bottom: 10px;
+            input{
+                margin: 0;
+                margin-right: -50px;
+                padding-right: 68px;
+            }
+        }
+        &_switch{
+            display: flex;
+            float: none;
+            margin-bottom: 10px;
+            @include breakpoint(medium down) {
+                flex-wrap: wrap;
+            }
+            a{
+                border: 2px solid $light-gray;
+                padding: 0 10px;
+                white-space: nowrap;
+                flex: 1 1 33.3333%;
+            }
+            label{
+                line-height: normal;
+                margin-left: 10px;
+                display: flex;
+                align-items: center;
+                @include breakpoint(medium down) {
+                    flex: 0 0 100%;
+                    margin: 0;
+                    margin-top: 10px;
+                }
+            }
+            input{
+                margin: 0;
+                margin-right: 5px;
+                min-width:20px;
+                flex: 15%;
+                @include breakpoint(medium down) {
+                    flex:none;
+                }
+            }
+        }
+        &_alphabet{
+            display: flex;
+            flex-wrap: wrap;
+            a{
+                white-space: nowrap;
+                color: $dark-gray;
+                padding: 0 5px;
+                text-align: center;
+                flex: 1 1 auto;
+            }
+        }
+    }
+    &_items{
+        margin-bottom: 23px;
+        [id^="entryID"]:nth-child(even){
+            background-color: $light-gray;
+        }
+        &_rating{
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            ul{
+                margin-bottom: 10px;
+            }
+        }
+    }
+}
+
+.ditem{
+    &_content{
+        padding: 10px 0;
     }
 }
 
