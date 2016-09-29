@@ -734,11 +734,15 @@ select{
                 transform: scale(-1, 1)
             }
         }
+        a{
+            color: $black;
+        }
         tbody {
             display: flex;
             flex-flow: row wrap;
         }
         tr {
+            display: flex;
             flex: 0 0 50%;
             max-width: 50%;
             border: 2px solid $light-gray;
@@ -881,7 +885,17 @@ select{
         a {
             color: $black;
             i {
+                display: block;
+                float: left;
+                // margin-top: -5px;
+                width: 20px;
+                height: 20px;
                 margin-right: 10px;
+                border-radius: 50%;
+                background-color: map-get($foundation-palette, third);
+                color: $white;
+                padding-top: 3px;
+                padding-left: 4px;
             }
         }
     }
@@ -1087,7 +1101,7 @@ select{
         #showAddonsFields{
             display: none;
         }
-        select, input{
+        select, .commTable input{
             width: auto !important;
         }
         [name="subs"]{
@@ -2193,6 +2207,20 @@ select{
 .ditem{
     &_content{
         padding: 10px 0;
+    }
+}
+
+.advices {
+    .column{
+        margin: 10px 0;
+    }
+    .button{
+        width: 100%;
+        height: 100%;   
+        white-space: normal;
+        display: flex;
+        align-items: center;
+        justify-content: center
     }
 }
 
