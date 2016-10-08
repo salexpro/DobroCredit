@@ -282,14 +282,25 @@ select{
     }
 }
 
+.off-canvas-wrapper-inner{
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
 .head {
     background: $light-gray;
     &_inner {
         min-height: 100px;
+        flex-wrap:nowrap;
+        @include breakpoint(medium down) {
+            flex-wrap: wrap;
+        }
         @include breakpoint(440px down) {
             padding-bottom: 10px;
         }
         .logo {
+            max-height: 100px;
             padding-top: 7.5px;
             padding-bottom: 7.5px;
             @include breakpoint(440px down) {
@@ -302,6 +313,7 @@ select{
             }
         }
         .banner {
+            max-width: 874px;
             padding-left: 0;
             padding-right: 11px;
             @include breakpoint(medium down) {
@@ -378,6 +390,11 @@ select{
 .login {
     text-align: center;
     padding-left: 0;
+    flex-wrap: nowrap;
+    min-width: 210px;
+    @include breakpoint(medium down) {
+        min-width: 260px
+    }
     @include breakpoint(440px down) {
         flex: 1 1 0px;
         padding-left: 10px !important;
@@ -430,6 +447,9 @@ select{
         .label {
             display: table;
         }
+    }
+    &_enter{
+        flex-wrap:nowrap;
     }
     &_register {
         padding-right: 55px !important;
@@ -624,9 +644,10 @@ select{
         list-style: none;
         margin: 0;
         padding-left: 14px;
+        font-size: 15px;
     }
     li {
-        padding-bottom: 3px;
+        padding-bottom: 5px;
     }
     i {
         font-size: 16px;
@@ -646,9 +667,32 @@ select{
     }
 }
 
+.content{
+    width: 100%;
+    flex: 1 1 auto;
+}
+
 .article{
     @include breakpoint(medium down) {
         padding-top: 20px;
+    }
+    &_banner{
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+        width: 100%;
+        height: 80px;
+        text-align: center;
+        background: map-get($foundation-palette, warning);
+        font-size: 28px;
+        padding: 0 10px;
+        text-decoration: none !important;
+        color: $white !important;
+        @include breakpoint(small down) {
+            flex-direction: column;
+            height: auto;
+            padding: 10px;
+        }
     }
 }
 
@@ -708,6 +752,9 @@ select{
     }
     &_cats {
         margin-bottom: 8px;
+        .catsTableI{
+            display: block;
+        }
         p {
             display: table;
             padding: 0 30px;
@@ -734,15 +781,12 @@ select{
                 transform: scale(-1, 1)
             }
         }
-        a{
-            color: $black;
-        }
         tbody {
             display: flex;
             flex-flow: row wrap;
         }
         tr {
-            display: flex;
+            display: block;
             flex: 0 0 50%;
             max-width: 50%;
             border: 2px solid $light-gray;
@@ -817,10 +861,17 @@ select{
             color: #BAAB9D;
             margin-right: 12px;
             font-size: 20px;
+            transition: 200ms;
         }
         a {
             display: flex;
             align-items: center;
+            color: $black;
+            &:hover{
+                i{
+                    color: $black;
+                }
+            }
         }
         b {
             border-radius: 6px;
@@ -877,6 +928,8 @@ select{
     &_top {
         @include breakpoint(small down) {
             flex-direction: column-reverse;
+            white-space: nowrap;
+            text-align: center;
         }
         h4 {
             text-transform: uppercase;
@@ -894,8 +947,8 @@ select{
                 border-radius: 50%;
                 background-color: map-get($foundation-palette, third);
                 color: $white;
-                padding-top: 3px;
-                padding-left: 4px;
+                line-height: 21px;
+                text-align: center;
             }
         }
     }
@@ -933,6 +986,7 @@ select{
                     background-color: map-get($foundation-palette, vip_acc);
                     line-height: 35px;
                     text-align: center;
+                    white-space: nowrap;
                     @include breakpoint(small down) {
                         width: calc(100% + 10px);
                         margin-left: -10px !important;
@@ -959,7 +1013,7 @@ select{
         padding-left: 10px !important;
     }
     .goods-list.with-clear .list-item:nth-child(even) &,
-    &:nth-child(even) {
+    &:nth-of-type(even) {
         background-color: $light-gray;
     }
     &_na{
@@ -1002,6 +1056,25 @@ select{
             margin-left: 15px;
         }
     }
+    &_pinned{
+        // padding-bottom: 0;
+        .item_contacts {
+            display: flex;
+            justify-content: space-around;
+            font-size: 14px;
+            background-color: $medium-gray;
+            line-height: 35px;
+            text-align: center;
+            white-space: nowrap;
+            @include breakpoint(small down) {
+                width: calc(100% + 10px);
+                margin-left: -10px !important;
+            }
+            a {
+                color: $black;
+            }
+        }
+    }
 }
 
 .bitem{
@@ -1038,6 +1111,9 @@ select{
         width: 100%;
         height: 500px;
         margin-bottom: 10px;
+    }
+    &_ads{
+        margin: 20px 0
     }
     &_alert{
         color: map-get($foundation-palette, alert);
@@ -1087,6 +1163,34 @@ select{
             }
         }
     }
+    &_related{
+        padding-top: 20px;
+        &_header{
+            font-size: 16px;
+            font-weight: 600;
+            margin: 0;
+        }
+        .goods-list{
+            @include flex-grid-row;
+        }
+        .list-item{
+            @include flex-grid-column;
+            @extend .large-3;
+            @extend .medium-6;
+            @extend .small-12;
+            margin-top: 20px;
+        }
+        img{
+            display: block;
+            margin: auto;
+            margin-bottom: 10px;
+            max-height: 140px;
+        }
+        &_title{
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+    }
     &_comments{
         margin-top: 25px;
         &_forbidden{
@@ -1127,24 +1231,54 @@ select{
         font-weight: 600;
     }
     #image-list{
+        width:100%;
+        position:relative; 
+        margin-top:10px;
+        .panel{
+            margin:0; 
+            float:left; 
+            overflow:hidden;
+        }
         .inner {
             position: relative;
             margin: 4px;
             border: $dark-gray 1px solid;
+            div{
+                position:absolute; 
+                width:16px; 
+                height:16px; 
+                cursor:pointer; 
+                top:4px; 
+                overflow:hidden;
+                &.edt {
+                    right:24px; 
+                    background:transparent url(/.s/img/icon/edt.png) no-repeat 0 0
+                }
+                &.del{
+                    right:2px; 
+                    background:transparent url(/.s/img/icon/del.png) no-repeat 0 0
+                }
+            }
+            input{
+                opacity: 0;
+                font-size: 200px;
+                height: 250px;
+                cursor: pointer;
+                position: absolute;
+                left: 0;
+                display: block;
+                margin: 0;
+                outline: none;
+            }
+        }
+        .wait{
+            background:url(/.s/img/wd/1/ajax.gif) no-repeat center center;
         }
         p {
             margin: 47px 0 0 0;
             text-align: center;
             cursor: pointer;
             position: absolute;
-        }
-        #id_file_add {
-            margin-top: -100px;
-            margin-left: -550px;
-            opacity: 0;
-            font-size: 200px;
-            height: 250px;
-            cursor: pointer;
         }
     }   
 }
@@ -1153,6 +1287,10 @@ select{
     &_header{
         @extend .bitem_header;
         padding: 0;
+        a{
+            margin-left: 5px;
+            color: map-get($foundation-palette, alert);
+        }
     }
     .tabs{
         margin-bottom: 20px;
@@ -1256,9 +1394,17 @@ select{
 
 .pmessages{
     position: relative;
-    input{
+    input, select{
         width: auto !important;
         margin: 5px;
+        &[name="subject"], &[name="s"]{
+            width: 100% !important;
+        }
+    }
+    .pbarContainer, .smiles{
+        @include breakpoint(small down){
+            display: none;
+        }
     }
 }
 
@@ -1307,7 +1453,9 @@ select{
     &_map{
         &_inner{
             position: relative;
-
+            @include breakpoint(small down){
+                display: none;
+            }
         }
         &_cities{
             font-weight: 600;
@@ -1394,13 +1542,11 @@ select{
         }
         .input-group{
             margin: 0;
+            display: inline-flex;
             &:only-child{
                 input{
                     width: 100%;
                 }
-            }
-            ~ *{
-                margin-left: 10px
             }
         }
         select {
@@ -1410,6 +1556,9 @@ select{
                 border-color: $black;
                 color: $black;
             }
+        }
+        &_creditor, &_broker{
+            display: inline-block;
         }
     }
     &_list{
@@ -1498,7 +1647,7 @@ select{
                 padding: 4px 0;
                 font-size: 16px;
             }
-            td{
+            tbody td{
                 padding: 4px 0;
                 text-align: center;
                 &:first-child{
@@ -1509,6 +1658,17 @@ select{
         }
         tbody tr{
             cursor: pointer;
+        }
+        tfoot td{
+            padding: 4px 10px;
+            text-align: right;
+        }
+        @include breakpoint(380px down) {
+            th, td:not(:only-child){
+                &:last-child{
+                    display: none;
+                }
+            }
         }
     }
     &_bid{
@@ -1739,6 +1899,9 @@ select{
                 }
             }
         }
+        tr:nth-child(odd){
+            background-color: $white;
+        }
     }
     .forumNameTd{
         padding: 10px 0;
@@ -1772,7 +1935,7 @@ select{
     > br + br + br ~ *{
         display: none;
     }
-    .fFastNavTd, .forumModerFuncs{
+    .forumModerFuncs{
         display: flex;
         select{
             margin: 0;
@@ -1780,6 +1943,21 @@ select{
         input{
             margin-left: 10px;
         }
+    }
+    .fFastNavTd{
+        *{
+            float: left;
+        }
+        select{
+            margin: 0;
+            max-width: 350px;
+        }
+        input{
+            margin-left: 10px;
+        }
+    }
+    .fFastLogin{
+        display: none;
     }
     #thread_search_form{
         display: flex;
@@ -1945,6 +2123,11 @@ select{
             margin: 0;
         }
     }
+    .smilesPart{
+        @include breakpoint(small down) {
+            display: none;
+        }
+    }
 }
 
 .calc{
@@ -2080,7 +2263,7 @@ select{
         a{
             display: flex;
             flex: 1 1 0px;
-            height: 120px;
+            height: 70px;
             background-color: $light-gray;
             border: 1px solid $white;
             color: #565656;
@@ -2153,7 +2336,7 @@ select{
                 border: 2px solid $light-gray;
                 padding: 0 10px;
                 white-space: nowrap;
-                flex: 1 1 33.3333%;
+                flex: 1;
             }
             label{
                 line-height: normal;
@@ -2394,8 +2577,32 @@ select{
         a {
             font-size: 24px;
             margin-left: 15px;
+            transition: 200ms;
             &:first-of-type {
                 margin: 0;
+                &:hover{
+                    color: #2f6caa;
+                }
+            }
+            &:nth-of-type(2){
+                &:hover{
+                    color: #dc4c39;
+                }
+            }
+            &:nth-of-type(3){
+                &:hover{
+                    color: #79CAEE;
+                }
+            }
+            &:nth-of-type(4){
+                &:hover{
+                    color: #5480BE;
+                }
+            }
+            &:last-of-type{
+                &:hover{
+                    color: #ed812b;
+                }
             }
         }
     }
@@ -2445,5 +2652,30 @@ select{
         a {
             text-decoration: underline;
         }
+    }
+}
+
+// Hacks for IE
+@media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
+    .head_inner .banner{
+        max-width: none;
+    }
+    .board_head{
+        height: 42px;
+    }
+    .footer_top > .row, .footer_bottom > .row{
+        height: 50px;
+    }
+    .bitem_details{
+        height: 35px;
+    }
+    .login_register, .login_form{
+        flex: 1 1 50%;
+    }
+    .tabs-title a{
+        height: 37px;
+    }
+    .user fieldset .row{
+        height: 40px;
     }
 }
