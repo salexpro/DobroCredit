@@ -676,7 +676,7 @@ if(
         })
     
         /*----- Проверка и отправка -----*/
-    
+        
         // Валидация
         $('.register input,.register select').tooltipster({
             trigger: 'custom',
@@ -749,6 +749,7 @@ if(
                 if(resp.stat.indexOf('myWinLoadSD')!=-1){
                     if($.cookie('profile')!=1) {
                         // succ_win();
+                        new _uWnd("Success","Успешная регистрация",350,150,{modal:1,close:0},'Поздравляем с успешной регистрацией на сайте ДоброКредит, теперь вы можете Разместить бесплатное объявление на <a href="/shop/doska-objavlenij">финансовой доске объявлений</a>, Задать вопрос на <a href="/forum">форуме</a> либо Воспользоваться <a href="/stuff">Сервисом Анонимных частных займов</a><br><sub>Через несколько секунд произойдет переадресация</sub>');
                         setTimeout(function(){location.href="/shop/0/add"}, 10000);
                     }else{
                         setTimeout(function(){location.reload()}, 500);
