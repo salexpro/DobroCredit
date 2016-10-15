@@ -1100,7 +1100,7 @@ if(module_id=='stuff'&&(page_id=='add'||page_id=='edit')){
         submitHandler: function(form) {
 
             //Фильтр по сумме
-            var bpsum = $(this).val();
+            var bpsum = $('[name="aname"]').val();
             var filter1 = $('[name="filter1"]');
             if (bpsum >= 3000 && bpsum < 10000) {
                 filter1.val(1);
