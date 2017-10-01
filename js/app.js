@@ -3,7 +3,7 @@ $(document).foundation();
 // Проверка заполнения анкеты
 if (uid) {
     if (!$.cookie('profile')) {
-        $.get('http://dobrocredit.ru/php/service/new/user/get.php', { 'uid': uid }, isprofile);
+        $.get('/php/service/new/user/get.php', { 'uid': uid }, isprofile);
 
         function isprofile(data) {
             var u_icq = $.parseJSON(data).data[0].users[0].icq;
@@ -15,6 +15,66 @@ if (uid) {
         }
     }
 }
+
+// Голосовой поиск по сайту
+window.SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition || null;
+if (window.SpeechRecognition === null) {
+    $('.searchform i').attr('title','Ваш браузер не поддерживает голосовой ввод').removeClass('fa-microphone').addClass('fa-microphone-slash');
+} else {
+    var recognizer = new window.SpeechRecognition();
+    var schinput;
+
+    // Recogniser doesn't stop listening even if the user pauses
+    recognizer.continuous = true;
+    recognizer.interimResults = true;
+    recognizer.lang = 'ru-RU';
+
+    $('.searchform i, .board_search i').click(function(){
+        schinput = $(this).prev()[0];
+        if($(this).hasClass('fa-microphone')){
+            try {
+                $(this).prev().attr('placeholder','Говорите...');
+                $(this).removeClass('fa-microphone').addClass('fa-circle');
+                recognizer.start();
+                console.log('Recognition started');
+            } catch (ex) {
+                console.log('Recognition error: ' + ex.message);
+            }
+        } else if($(this).hasClass('fa-circle')) {
+            $(this).prev().attr('placeholder','');
+            $(this).removeClass('fa-circle').addClass('fa-microphone');
+            recognizer.stop();
+            console.log('Recognition stopped');
+        }
+    });
+
+    // Start recognising
+    recognizer.onresult = function(event) {
+        schinput.value = '';
+        for (var i = event.resultIndex; i < event.results.length; i++) {
+            if (event.results[i].isFinal) {
+                schinput.value = event.results[i][0].transcript;
+            } else {
+                schinput.value += event.results[i][0].transcript;
+            }
+        }
+    };
+
+    // Listen for errors
+    recognizer.onerror = function(event) {
+        console.log('Recognition error: ' + event.message)
+    };
+
+
+    $('.searchform').parent().submit(function(){
+        recognizer.stop();
+    });
+
+    $('.board_search').submit(function(){
+        recognizer.stop();
+    });
+}
+
 
 // Авторизация
 sendFrm549160 = function() {
@@ -95,7 +155,7 @@ if (loadseo && (pid != 31038 && cid != 31038)) {
     if ($('.catalog tr').length % 2) {
         $('.board_cats_section .catalog tbody').append('<tr></tr>');
     }
-    $.get('http://dobrocredit.ru/php/count/count.php?pid=' + pid + '&cid=' + cid, function(data) {
+    $.get('/php/count/count.php?pid=' + pid + '&cid=' + cid, function(data) {
         cities = $.parseJSON(data);
         $(cities).each(function() {
             $('#catalog-item-' + this.cat_id).append('<b>' + this.goods_count + '</b>');
@@ -128,6 +188,15 @@ $('.item_na .u-mpanel-l>li').click(function() {
         });
     }
 })
+
+// Показать телефон/почту
+function showdata(e, obj, type, data){
+    e.preventDefault()
+    $(obj).removeAttr('onclick').attr({
+        'href'  : type + ':' + data,
+        'target': '_blank' 
+    }).text(data);
+}
 
 if (module_id == 'shop') {
     // Карта в обьявлении
@@ -426,7 +495,7 @@ if (module_id == 'shop' && (page_id == 'add' || page_id == 'edit')) {
 if (page_id == 'userdetails') {
 
     // Подгрузка данных
-    $.get('http://dobrocredit.ru/php/service/new/user/get_db.php', { 'uid': o_uid, 'gid': gid }, getuser);
+    $.get('/php/service/new/user/get_db.php', { 'uid': o_uid, 'gid': gid }, getuser);
 
     function getuser(data) {
         var user = $.parseJSON(data);
@@ -444,7 +513,7 @@ if (page_id == 'userdetails') {
     $('.user_header a, .user_social>span').tooltipster({theme: 'tooltipster-light'});
 
     // Подгрузка обьявлений пользователя
-    $.get('http://dobrocredit.ru/php/service/new/user/goods.php?uid='+o_uid, function(data) {
+    $.get('/php/service/new/user/goods.php?uid='+o_uid, function(data) {
         if (data&&(data.indexOf('Не найдено ни одного товара') == -1)) {
             if(gid==1){
                 var header = 'заемщика';
@@ -515,7 +584,7 @@ if(
     /*----- Действия при загрузке -----*/
 
     // Области и города
-    var rq_cat = $.get('http://dobrocredit.ru/php/service/new/cats.php',getcats);
+    var rq_cat = $.get('/php/service/new/cats.php',getcats);
     var cats;
     function getcats(data){
         cats = $.parseJSON(data);
@@ -566,9 +635,9 @@ if(
         
         // Заполняем поля если анкета есть
         function loaduserdata(){
-            $.get('http://dobrocredit.ru/php/service/new/user/get.php',{'uid': user_id}, getuser);
+            $.get('/php/service/new/user/get.php',{'uid': user_id}, getuser);
             function getuser(data){
-                var user = $.parseJSON(data).data[0].users[0];
+                user = $.parseJSON(data).data[0].users[0];
                 if($.parseJSON(data).data[1]!=undefined){
                     var profile = $.parseJSON(data).data[1].profile[0]
                 }
@@ -632,6 +701,30 @@ if(
         } else if(params.indexOf('del&social')!=-1){
             _uWnd.alert('<div class="myWinError">Соцсеть '+flag[params.substr(params.indexOf('=',5)+1)-1]+' удалена из профиля.</div>','',{w:200,h:70,tm:10000}); 
         }
+
+        // Удаление аккаунта
+        $('.useredit_delete').click(function(){
+            $('.register_preloader').fadeIn();
+            $.ajax({
+                url: '/php/service/new/user/delete.php',
+                type: 'POST',
+                data: {user: user.user},
+                dataType: 'json',
+                success: function(data){
+                    if(data.success){
+                        _uWnd.alert('<div style="margin-top:15px" class="myWinSuccess">' + data.success.msg + '</div>', '', { w: 200, h: 60, tm: 3000 });
+                        setTimeout(function(){
+                            $('.register_preloader').fadeOut();
+                            location.href = '/';
+                        }, 2500);
+                    } else if(data.error){
+                        _uWnd.alert('<div style="margin-top:15px" class="myWinError">Произошла ошибка: ' + data.error.msg + '</div>', '', { w: 200, h: 60, tm: 3000 });
+                        $('.register_preloader').fadeOut();
+                    }
+                }
+            });
+        })
+
     } else if(uri_id!='page31'&&module_id!='stuff'){
         //Убираем лоадер
         $('.register_preloader').fadeOut();
@@ -681,7 +774,7 @@ if(
         $('.register input,.register select').tooltipster({
             trigger: 'custom',
             onlyOne: false,
-            position: 'left'
+            position: 'right'
         });
         $('.register form').validate({
             errorPlacement: function(error, element) {
@@ -881,7 +974,7 @@ if(uri_id=='page31'){
 
         var params = $(form).find(":input").filter(function(){return $.trim(this.value).length > 0}).serialize()+'&page='+pgn;
         history.pushState(null, null, '/index/0-31?'+params);
-        $.get('http://dobrocredit.ru/php/service/new/search.php',params,schresult);
+        $.get('/php/service/new/search.php',params,schresult);
         if(page){$('html, body').animate({scrollTop: $('.service_list').offset().top}, 500);}
     }
     function schresult(data) {
@@ -895,9 +988,11 @@ if(uri_id=='page31'){
         var locate = location.search.substr(1);
         var lparams = Url.parseQuery(locate);
         if(lparams){
-            for (var param in lparams) {
-                console.log(param+': '+lparams[param].replace(/\+/g,' '));
-                $('[name="'+param+'"]').val(lparams[param].replace(/\+/g,' ')).change();
+            for (var lparam in lparams) {
+                if(lparam!='indexOf'){
+                    console.log(lparam+': '+lparams[lparam].replace(/\+/g,' '));
+                    $('[name="'+lparam+'"]').val(lparams[lparam].replace(/\+/g,' ')).change();
+                }
             }
             if(!lparams['region']&&lparams['city']){
                 for (var i = 0; i < cats.length; i++){
@@ -953,15 +1048,16 @@ if((module_id=='stuff')&&(page_id=='main'||page_id=='section'||page_id=='categor
             var city = $('[name="city"] :selected').data('id');
             var place = city ? city : region;
 
+            console.log((params['type']));
             // Область/город + тип
             if(place){
-                if(params['type']){
+                if(params['type']==1){
                     searchlink += place+'-1-3-0-0-';
                 } else {
                     searchlink += place+'-1-4-0-0-';
                 }
             } else {
-                if(params['type']){
+                if(params['type']==1){
                     searchlink += '2-1-12-0-0-';
                 } else {
                     searchlink += '1-1-12-0-0-';
@@ -989,10 +1085,10 @@ if((module_id=='stuff')&&(page_id=='main'||page_id=='section'||page_id=='categor
     /*----- Действия при загрузке -----*/
 
     // Подгружаем последние заявки и предложения
-    $.get('http://dobrocredit.ru/php/service/service.php',{cat:1},function(data){
+    $.get('/php/service/service.php',{cat:1},function(data){
         $('.service_bid tbody').append(data);
     });
-    $.get('http://dobrocredit.ru/php/service/service.php',{cat:2},function(data){
+    $.get('/php/service/service.php',{cat:2},function(data){
         $('.service_offer tbody').append(data);
     });
 
