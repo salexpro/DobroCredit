@@ -213,18 +213,21 @@ select{
 
 .head {
     background: $light-gray;
+    @include breakpoint(medium down) {
+        margin-bottom: 10px;
+    }
     &_inner {
         min-height: 100px;
         flex-wrap:nowrap;
         @include breakpoint(medium down) {
             flex-wrap: wrap;
         }
-        @include breakpoint(440px down) {
-            padding-bottom: 10px;
-        }
+        // @include breakpoint(440px down) {
+        //     padding-bottom: 10px;
+        // }
         .logo {
             height: 100%;
-            max-height: 100px;
+            // max-height: 100px;
             padding-top: 7.5px;
             padding-bottom: 7.5px;
             @include breakpoint(440px down) {
@@ -244,6 +247,9 @@ select{
                 flex: 0 0 100%;
                 max-width: 100%;
                 padding: 0;
+            }
+            @include breakpoint(440px down) {
+                padding-top: 10px;
             }
             img {
                 width: 100%;
@@ -748,26 +754,26 @@ select{
             @include breakpoint(small down) {
                 flex: 0 0 100%;
                 max-width: 100%;
-                &:nth-child(2) {
-                    position: relative;
-                    margin-top: 50px;
-                    &::before {
-                        content: 'Предложение';
-                        display: block;
-                        width: 165px;
-                        padding: 0 30px;
-                        margin: auto;
-                        margin-top: -29px;
-                        margin-bottom: 2px;
-                        background: #ECF0F1;
-                        text-align: center;
-                        text-transform: uppercase;
-                        line-height: 27px;
-                        position: relative;
-                        border-top-right-radius: 23px 32px;
-                        border-top-left-radius: 23px 32px;
-                    }
-                }
+                // &:nth-child(2) {
+                //     position: relative;
+                //     margin-top: 50px;
+                //     &::before {
+                //         content: 'Предложение';
+                //         display: block;
+                //         width: 165px;
+                //         padding: 0 30px;
+                //         margin: auto;
+                //         margin-top: -29px;
+                //         margin-bottom: 2px;
+                //         background: #ECF0F1;
+                //         text-align: center;
+                //         text-transform: uppercase;
+                //         line-height: 27px;
+                //         position: relative;
+                //         border-top-right-radius: 23px 32px;
+                //         border-top-left-radius: 23px 32px;
+                //     }
+                // }
                 &:nth-last-child(2) {
                     td {
                         position: relative;
@@ -798,12 +804,12 @@ select{
                 }
             }
             &:nth-child(even) {
-                border-left: 0;
+                border-left-width: 0;
                 @include breakpoint(small down) {
                     order: 2;
                 }
             }
-            &:nth-last-child(-n+2) {
+            &:nth-last-child(-n+3) {
                 border-bottom: 2px solid $light-gray;
             }
             td {
@@ -880,6 +886,20 @@ select{
                 }
             }
         }
+        &--main {
+            tr {
+                &:first-child,
+                &:nth-child(3),
+                &:nth-child(5),
+                &:nth-child(7) {
+                    display: none;
+                }
+                &:nth-child(2),
+                &:nth-child(6) {
+                    border-width: 2px;
+                }
+            }
+        }
     }
     &_top {
         @include breakpoint(small down) {
@@ -931,7 +951,7 @@ select{
             .item {
                 background-color: map-get($foundation-palette, vip) !important;
                 padding-bottom: 0;
-                margin-bottom: 20px;
+                margin-bottom: 10px;
                 &:last-of-type {
                     margin: 0;
                 }
