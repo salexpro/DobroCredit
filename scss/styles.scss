@@ -949,11 +949,20 @@ select{
             border: 5px solid map-get($foundation-palette, alert);
             border-radius: 3px;
             .item {
-                background-color: map-get($foundation-palette, vip) !important;
-                padding-bottom: 0;
-                margin-bottom: 10px;
+                &.item{
+                    background-color: map-get($foundation-palette, vip);
+                    padding-bottom: 0;
+                    margin-bottom: 10px;
+                }
                 &:last-of-type {
-                    margin: 0;
+                    margin-bottom: 0;
+                }
+                &.item--banner {
+                    background-color: map-get($foundation-palette, vip_acc);
+                    padding-bottom: 10px;
+                    &-pink{
+                        background-color: #ffd6d6;
+                    }
                 }
                 &_contacts {
                     display: flex;
@@ -992,16 +1001,9 @@ select{
     &:nth-of-type(even) {
         background-color: $light-gray;
     }
-    &--banner{
-        
-    }
     &_outer{
         border: 0;
         margin-bottom: 20px;
-        .item--banner{
-            background-color: map-get($foundation-palette, vip_acc) !important;
-            padding-bottom: 10px;
-        }
     }
     &_na{
         background-color: #ddd !important;
